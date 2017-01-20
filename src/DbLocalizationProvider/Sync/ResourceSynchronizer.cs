@@ -10,6 +10,7 @@ using DbLocalizationProvider.Cache;
 using DbLocalizationProvider.Commands;
 using DbLocalizationProvider.Internal;
 using DbLocalizationProvider.Queries;
+using EntityFramework.Extensions;
 
 namespace DbLocalizationProvider.Sync
 {
@@ -73,16 +74,18 @@ namespace DbLocalizationProvider.Sync
             }
         }
 
-        private void ResetSyncStatus()
-        {
-            using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings[ConfigurationContext.Current.ConnectionName].ConnectionString))
-            {
-                var cmd = new SqlCommand("UPDATE dbo.LocalizationResources SET FromCode = 0", conn);
-
-                conn.Open();
-                cmd.ExecuteNonQuery();
-                conn.Close();
+        private void ResetSyncStatus() {
+            using (var db = new LanguageEntities()) {
+                db.LocalizationResources.Update(t => new LocalizationResource { FromCode = false });
+                db.SaveChanges();
             }
+            //using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings[ConfigurationContext.Current.ConnectionName].ConnectionString))
+            //{
+            //    var cmd = new SqlCommand("UPDATE dbo.LocalizationResources SET FromCode = 0", conn);
+            //    conn.Open();
+            //    cmd.ExecuteNonQuery();
+            //    conn.Close();
+            //}
         }
 
         private void RegisterDiscoveredResources(IEnumerable<Type> types)

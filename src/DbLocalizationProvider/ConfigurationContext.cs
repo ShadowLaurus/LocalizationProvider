@@ -4,18 +4,15 @@ using System.Globalization;
 using System.Reflection;
 using DbLocalizationProvider.Cache;
 
-namespace DbLocalizationProvider
-{
+namespace DbLocalizationProvider {
     /// <summary>
     ///     Context to configure various localization provider features and behavior
     /// </summary>
-    public class ConfigurationContext
-    {
+    public class ConfigurationContext {
         public const string CultureForTranslationsFromCode = "";
         private CultureInfo _defaultResourceCulture;
 
-        public ConfigurationContext()
-        {
+        public ConfigurationContext() {
             ModelMetadataProviders = new ModelMetadataProvidersConfiguration();
         }
 
@@ -36,15 +33,13 @@ namespace DbLocalizationProvider
         public bool DiscoverAndRegisterResources { get; set; } = true;
 
         [Obsolete("In next version this will be moved under `ModelMetadataProviders` property")]
-        public bool ReplaceModelMetadataProviders
-        {
+        public bool ReplaceModelMetadataProviders {
             get { return ModelMetadataProviders.ReplaceProviders; }
             set { ModelMetadataProviders.ReplaceProviders = value; }
         }
 
         [Obsolete("In next version this will be moved under `ModelMetadataProviders` property")]
-        public bool UseCachedModelMetadataProviders
-        {
+        public bool UseCachedModelMetadataProviders {
             get { return ModelMetadataProviders.UseCachedProviders; }
             set { ModelMetadataProviders.UseCachedProviders = value; }
         }
@@ -52,8 +47,7 @@ namespace DbLocalizationProvider
         public ModelMetadataProvidersConfiguration ModelMetadataProviders { get; set; }
 
         [Obsolete("In next version this will be moved under `ModelMetadataProviders` property")]
-        public Func<bool> EnableLegacyMode
-        {
+        public Func<bool> EnableLegacyMode {
             get { return ModelMetadataProviders.EnableLegacyMode; }
             set { ModelMetadataProviders.EnableLegacyMode = value; }
         }
@@ -64,13 +58,10 @@ namespace DbLocalizationProvider
         /// <value>
         ///     The default resource culture for translations.
         /// </value>
-        public CultureInfo DefaultResourceCulture
-        {
+        public CultureInfo DefaultResourceCulture {
             get { return _defaultResourceCulture; }
-            set
-            {
-                if(value == null)
-                {
+            set {
+                if (value == null) {
                     throw new ArgumentNullException(nameof(value));
                 }
 
@@ -95,6 +86,7 @@ namespace DbLocalizationProvider
         ///     The name of the connection.
         /// </value>
         public string ConnectionName { get; set; } = "EPiServerDB";
+        public string DatabaseSchema { get; set; } = "";
 
         public TypeFactory TypeFactory { get; } = new TypeFactory();
 
@@ -111,8 +103,7 @@ namespace DbLocalizationProvider
 
         public ICollection<CustomAttributeDescriptor> CustomAttributes { get; set; } = new List<CustomAttributeDescriptor>();
 
-        public static void Setup(Action<ConfigurationContext> configCallback)
-        {
+        public static void Setup(Action<ConfigurationContext> configCallback) {
             configCallback?.Invoke(Current);
         }
     }
