@@ -26,7 +26,7 @@ namespace DbLocalizationProvider.Queries
                 var q = new GetAllResources.Query();
                 var allResources = q.Execute().Where(r =>
                                                          r.ResourceKey.StartsWith(query.Key) &&
-                                                         r.Translations.Any(t => t.Language == query.Language.Name)).ToList();
+                                                         r.Translations.Any(t => t.Language?.Name == query.Language?.Name)).ToList();
 
                 if(!allResources.Any())
                 {
@@ -34,7 +34,7 @@ namespace DbLocalizationProvider.Queries
                 }
 
                 return allResources.Select(r => new ResourceItem(r.ResourceKey,
-                                                                 r.Translations.First(t => t.Language == query.Language.Name).Value,
+                                                                 r.Translations.First(t => t.Language?.Name == query.Language?.Name).Value,
                                                                  query.Language)).ToList();
             }
         }

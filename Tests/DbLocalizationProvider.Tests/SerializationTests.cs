@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using DbLocalizationProvider.Export;
 using Xunit;
 
-namespace DbLocalizationProvider.Tests
-{
-    public class SerializationTests
-    {
+namespace DbLocalizationProvider.Tests {
+    public class SerializationTests {
         [Fact]
-        public void TestSerialization()
-        {
+        public void TestSerialization() {
             var resources = new List<LocalizationResource>
                             {
                                 new LocalizationResource()
@@ -23,7 +20,7 @@ namespace DbLocalizationProvider.Tests
                                                        new LocalizationResourceTranslation
                                                        {
                                                            Id = 11,
-                                                           Language = "en",
+                                                           Language = new LocalizationLanguage() { Name= "en" },
                                                            Value = "test value"
                                                        }
                                                    }
@@ -37,8 +34,7 @@ namespace DbLocalizationProvider.Tests
         }
 
         [Fact]
-        public void TestDeserialization()
-        {
+        public void TestDeserialization() {
             string input = @"[
   {
     ""id"": 1,
@@ -48,7 +44,7 @@ namespace DbLocalizationProvider.Tests
     ""translations"": [
       {
         ""id"": 11,
-        ""language"": ""en"",
+        ""language"": { ""name"" : ""en""},
         ""value"": ""test value""
       }
     ]

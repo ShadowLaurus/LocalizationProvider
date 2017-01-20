@@ -13,7 +13,7 @@ namespace DbLocalizationProvider.Import
         {
             var count = 0;
 
-            using (var db = new LanguageEntities())
+            using (var db = new LanguageContext())
             {
                 // if we are overwriting old content - we need to get rid of it first
 
@@ -31,6 +31,7 @@ namespace DbLocalizationProvider.Import
                         // look for existing resource
                         var existingResource = db.LocalizationResources
                                                  .Include(r => r.Translations)
+                                                 .Include(x => x.Translations.Select(y => y.Language))
                                                  .FirstOrDefault(r => r.ResourceKey == localizationResource.ResourceKey);
 
                         if(existingResource == null)
@@ -79,12 +80,12 @@ namespace DbLocalizationProvider.Import
             return $"Import successful. Imported {count} resources";
         }
 
-        private static void AddNewResource(LanguageEntities db, LocalizationResource localizationResource)
+        private static void AddNewResource(LanguageContext db, LocalizationResource localizationResource)
         {
             db.LocalizationResources.Add(localizationResource);
             db.LocalizationResourceTranslations.AddRange(localizationResource.Translations);
         }
-
+        
         public IEnumerable<DetectedImportChange> DetectChanges(IEnumerable<LocalizationResource> importingResources)
         {
             var result = new List<DetectedImportChange>();

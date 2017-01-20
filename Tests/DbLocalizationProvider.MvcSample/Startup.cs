@@ -13,7 +13,7 @@ namespace DbLocalizationProvider.MvcSample
     {
         public void Configuration(IAppBuilder app)
         {
-            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en");
+            //CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en");
 
             app.UseDbLocalizationProvider(ctx =>
                                           {

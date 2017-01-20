@@ -4,12 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
-namespace DbLocalizationProvider
-{
-    public class TranslationComparer : IEqualityComparer<LocalizationResourceTranslation>
-    {
-        public bool Equals(LocalizationResourceTranslation x, LocalizationResourceTranslation y)
-        {
+namespace DbLocalizationProvider {
+    public class TranslationComparer : IEqualityComparer<LocalizationResourceTranslation> {
+        public bool Equals(LocalizationResourceTranslation x, LocalizationResourceTranslation y) {
             if (ReferenceEquals(x, y))
                 return true;
             if (ReferenceEquals(x, null))
@@ -19,20 +16,17 @@ namespace DbLocalizationProvider
             if (x.GetType() != y.GetType())
                 return false;
 
-            return string.Equals(x.Language, y.Language) && string.Equals(x.Value, y.Value);
+            return string.Equals(x.Language?.Name, y.Language?.Name) && string.Equals(x.Value, y.Value);
         }
 
-        public int GetHashCode(LocalizationResourceTranslation obj)
-        {
-            unchecked
-            {
-                return ((obj.Language?.GetHashCode() ?? 0) * 397) ^ (obj.Value?.GetHashCode() ?? 0);
+        public int GetHashCode(LocalizationResourceTranslation obj) {
+            unchecked {
+                return ((obj.Language?.Name?.GetHashCode() ?? 0) * 397) ^ (obj.Value?.GetHashCode() ?? 0);
             }
         }
     }
 
-    public class LocalizationResourceTranslation
-    {
+    public class LocalizationResourceTranslation {
         [Key]
         public int Id { get; set; }
 
@@ -43,9 +37,10 @@ namespace DbLocalizationProvider
         [JsonIgnore]
         public LocalizationResource LocalizationResource { get; set; }
 
-        public string Language { get; set; }
+        [ForeignKey(nameof(Language))]
+        public int? LanguageId { get; set; }
+        public LocalizationLanguage Language { get; set; }
 
         public string Value { get; set; }
-        
     }
 }

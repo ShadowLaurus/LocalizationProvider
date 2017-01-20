@@ -1,36 +1,33 @@
 ﻿using System.Data.Entity;
 
 namespace DbLocalizationProvider {
-    public class LanguageEntities : DbContext {
-        static LanguageEntities() {
-            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<LanguageEntities, Configuration>());
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<LanguageEntities, ConfigurationAutoUpdate>());
+    public class LanguageContext : DbContext {
+        static LanguageContext() {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<LanguageContext, ConfigurationAutoUpdate>());
         }
 
-        public LanguageEntities() : this(ConfigurationContext.Current.ConnectionName) { }
-
-        public LanguageEntities(string connectionString) : base(connectionString) {
+        public LanguageContext() : base(ConfigurationContext.Current.ConnectionName) { }
+        public LanguageContext(string connectionString) : base(connectionString) {
             Configuration.LazyLoadingEnabled = false;
-            Configuration.ProxyCreationEnabled = false;
-
-            Database.Initialize(false);
         }
 
+        public DbSet<LocalizationLanguage> LocalizationLanguages { get; set; }
         public DbSet<LocalizationResource> LocalizationResources { get; set; }
         public DbSet<LocalizationResourceTranslation> LocalizationResourceTranslations { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder) {
             if (!string.IsNullOrWhiteSpace(ConfigurationContext.Current.DatabaseSchema)) {
+                modelBuilder.Entity<LocalizationLanguage>().ToTable(nameof(LocalizationLanguage), ConfigurationContext.Current.DatabaseSchema);
                 modelBuilder.Entity<LocalizationResource>().ToTable(nameof(LocalizationResource), ConfigurationContext.Current.DatabaseSchema);
                 modelBuilder.Entity<LocalizationResourceTranslation>().ToTable(nameof(LocalizationResourceTranslation), ConfigurationContext.Current.DatabaseSchema);
             }
         }
     }
 
-    internal sealed class ConfigurationAutoUpdate : System.Data.Entity.Migrations.DbMigrationsConfiguration<LanguageEntities> {
+    internal sealed class ConfigurationAutoUpdate : System.Data.Entity.Migrations.DbMigrationsConfiguration<LanguageContext> {
         public ConfigurationAutoUpdate() {
             AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = false;
+            AutomaticMigrationDataLossAllowed = true;
             ContextKey = "DbLocalizationProvider.LanguageEntities";
         }
     }

@@ -33,8 +33,8 @@ namespace DbLocalizationProvider.MigrationTool.Tests
 
             Assert.Equal(2, firstResource.Translations.Count);
 
-            var norwegianTranslation = firstResource.Translations.First(t => t.Language == "no");
-            Assert.Equal("no", norwegianTranslation.Language);
+            var norwegianTranslation = firstResource.Translations.First(t => t.Language?.Name == "no");
+            Assert.Equal("no", norwegianTranslation.Language?.Name);
             Assert.Equal("Det er skjemalternativ", norwegianTranslation.Value);
         }
 

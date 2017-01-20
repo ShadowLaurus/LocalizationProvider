@@ -6,23 +6,18 @@ using EPiServer.DataAbstraction;
 using EPiServer.Security;
 using EPiServer.ServiceLocation;
 
-namespace DbLocalizationProvider.EPiServer.Queries
-{
-    public class EPiServerAvailableLanguages
-    {
-        public class Handler : IQueryHandler<AvailableLanguages.Query, IEnumerable<CultureInfo>>
-        {
+namespace DbLocalizationProvider.EPiServer.Queries {
+    public class EPiServerAvailableLanguages {
+        public class Handler : IQueryHandler<AvailableLanguages.Query, IEnumerable<CultureInfo>> {
             private readonly LanguageBranchRepository _languageBranchRepository;
 
-            public Handler()
-            {
+            public Handler() {
                 _languageBranchRepository = ServiceLocator.Current.GetInstance<LanguageBranchRepository>();
             }
 
-            public IEnumerable<CultureInfo> Execute(AvailableLanguages.Query query)
-            {
+            public IEnumerable<CultureInfo> Execute(AvailableLanguages.Query query) {
                 return _languageBranchRepository.ListEnabled().Where(l => l.QueryEditAccessRights(PrincipalInfo.CurrentPrincipal))
-                                                .Select(l => new CultureInfo(l.LanguageID));
+                                                .Select(l => new CultureInfo(l.LanguageID ?? string.Empty));
             }
         }
     }

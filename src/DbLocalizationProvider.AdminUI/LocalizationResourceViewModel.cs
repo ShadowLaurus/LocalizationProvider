@@ -2,15 +2,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace DbLocalizationProvider.AdminUI
-{
-    public class LocalizationResourceViewModel
-    {
-        public LocalizationResourceViewModel(List<ResourceListItem> resources, IEnumerable<CultureInfo> languages, IEnumerable<string> selectedLanguages)
-        {
+namespace DbLocalizationProvider.AdminUI {
+    public class LocalizationResourceViewModel {
+        public LocalizationResourceViewModel(List<ResourceListItem> resources, IEnumerable<CultureInfo> languages, IEnumerable<string> selectedLanguages) {
             Resources = resources;
             Languages = languages;
-            SelectedLanguages = selectedLanguages?.Select(l => new CultureInfo(l)) ?? languages;
+            SelectedLanguages = selectedLanguages?.Select(l => new CultureInfo(l ?? string.Empty)) ?? languages;
         }
 
         public List<ResourceListItem> Resources { get; }

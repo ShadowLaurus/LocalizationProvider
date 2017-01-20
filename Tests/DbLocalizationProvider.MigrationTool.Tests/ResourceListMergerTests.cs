@@ -2,13 +2,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace DbLocalizationProvider.MigrationTool.Tests
-{
-    public class ResourceListMergerTests
-    {
+namespace DbLocalizationProvider.MigrationTool.Tests {
+    public class ResourceListMergerTests {
         [Fact]
-        public void TwoEmptyLists_EmptyList()
-        {
+        public void TwoEmptyLists_EmptyList() {
             var merger = new ResourceListMerger();
             var list1 = new List<LocalizationResource>();
             var list2 = new List<LocalizationResource>();
@@ -19,8 +16,7 @@ namespace DbLocalizationProvider.MigrationTool.Tests
         }
 
         [Fact]
-        public void OneListFilled_TheSameList()
-        {
+        public void OneListFilled_TheSameList() {
             var merger = new ResourceListMerger();
             var list1 = new List<LocalizationResource>
                         {
@@ -36,8 +32,7 @@ namespace DbLocalizationProvider.MigrationTool.Tests
         }
 
         [Fact]
-        public void SecondListFilled_TheSameList()
-        {
+        public void SecondListFilled_TheSameList() {
             var merger = new ResourceListMerger();
             var list1 = new List<LocalizationResource>();
             var list2 = new List<LocalizationResource>
@@ -52,8 +47,7 @@ namespace DbLocalizationProvider.MigrationTool.Tests
         }
 
         [Fact]
-        public void BothListsFilled_DifferentKeys_JoinedList()
-        {
+        public void BothListsFilled_DifferentKeys_JoinedList() {
             var merger = new ResourceListMerger();
             var list1 = new List<LocalizationResource>
                         {
@@ -72,8 +66,7 @@ namespace DbLocalizationProvider.MigrationTool.Tests
         }
 
         [Fact]
-        public void BothListsFilled_SameKeys_JoinedList()
-        {
+        public void BothListsFilled_SameKeys_JoinedList() {
             var merger = new ResourceListMerger();
             var list1 = new List<LocalizationResource>
                         {
@@ -92,23 +85,20 @@ namespace DbLocalizationProvider.MigrationTool.Tests
         }
 
         [Fact]
-        public void BothListsFilledWithTranslations_SameKeys_JoinedList()
-        {
+        public void BothListsFilledWithTranslations_SameKeys_JoinedList() {
             var merger = new ResourceListMerger();
 
             var resource1English = new LocalizationResource("key1");
-            resource1English.Translations.Add(new LocalizationResourceTranslation
-                                              {
-                                                  Language = "en",
-                                                  Value = "hello"
-                                              });
+            resource1English.Translations.Add(new LocalizationResourceTranslation {
+                Language = new LocalizationLanguage() { Name = "en" },
+                Value = "hello"
+            });
 
             var resource1Norsk = new LocalizationResource("key1");
-            resource1English.Translations.Add(new LocalizationResourceTranslation
-                                              {
-                                                  Language = "no",
-                                                  Value = "hei"
-                                              });
+            resource1English.Translations.Add(new LocalizationResourceTranslation {
+                Language = new LocalizationLanguage() { Name = "no" },
+                Value = "hei"
+            });
 
             var list1 = new List<LocalizationResource>
                         {

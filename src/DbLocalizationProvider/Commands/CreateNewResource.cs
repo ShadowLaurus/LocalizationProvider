@@ -28,7 +28,7 @@ namespace DbLocalizationProvider.Commands
                 if(string.IsNullOrEmpty(command.Key))
                     throw new ArgumentNullException(nameof(command.Key));
 
-                using (var db = new LanguageEntities())
+                using (var db = new LanguageContext())
                 {
                     var existingResource = db.LocalizationResources.FirstOrDefault(r => r.ResourceKey == command.Key);
                     if(existingResource != null)

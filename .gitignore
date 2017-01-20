@@ -13,6 +13,9 @@ TestResults
 *.user
 *.sln.docstates
 
+*.mdf
+*.ldf
+
 # Build results
 [Dd]ebug/
 [Rr]elease/

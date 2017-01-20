@@ -113,6 +113,8 @@
     <Compile Include="Internal\IEnumerableOfTExtensions.cs" />
     <Compile Include="Internal\StringExtensions.cs" />
     <Compile Include="IQueryExtensions.cs" />
+    <Compile Include="LanguageContext.cs" />
+    <Compile Include="LocalizationLanguage.cs" />
     <Compile Include="LocalizationProvider.cs" />
     <Compile Include="ModelMetadataProvidersConfiguration.cs" />
     <Compile Include="Queries\AvailableLanguages.cs" />
@@ -133,7 +135,6 @@
     <Compile Include="Export\JsonDataSerializer.cs" />
     <Compile Include="Export\JsonDefaultContractResolver.cs" />
     <Compile Include="Import\ResourceImporter.cs" />
-    <Compile Include="LanguageEntities.cs" />
     <Compile Include="LocalizationResource.cs" />
     <Compile Include="LocalizationResourceTranslation.cs" />
     <Compile Include="Internal\MemberInfoExtensions.cs" />

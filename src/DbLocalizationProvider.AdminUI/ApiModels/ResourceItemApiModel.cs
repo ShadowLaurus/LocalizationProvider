@@ -1,15 +1,12 @@
 using System.Globalization;
 
-namespace DbLocalizationProvider.AdminUI.ApiModels
-{
-    public class ResourceItemApiModel
-    {
-        public ResourceItemApiModel(string key, string value, string sourceCulture)
-        {
+namespace DbLocalizationProvider.AdminUI.ApiModels {
+    public class ResourceItemApiModel {
+        public ResourceItemApiModel(string key, string value, string sourceCulture) {
             Key = key;
             Value = value;
 
-            var culture = new CultureInfo(sourceCulture);
+            var culture = new CultureInfo(sourceCulture ?? string.Empty);
             SourceCulture = new CultureApiModel(culture.Name, culture.EnglishName);
         }
 

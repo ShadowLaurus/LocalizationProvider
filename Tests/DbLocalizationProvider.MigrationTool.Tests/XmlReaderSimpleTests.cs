@@ -47,7 +47,7 @@ namespace DbLocalizationProvider.MigrationTool.Tests
             Assert.Equal(1, firstResource.Translations.Count);
 
             var firstTranslation = firstResource.Translations.First();
-            Assert.Equal("en", firstTranslation.Language);
+            Assert.Equal("en", firstTranslation.Language?.Name);
             Assert.Equal("This is display option", firstTranslation.Value);
         }
 
@@ -77,7 +77,7 @@ namespace DbLocalizationProvider.MigrationTool.Tests
             Assert.Equal(1, firstResource.Translations.Count);
 
             var firstTranslation = firstResource.Translations.First();
-            Assert.Equal("en", firstTranslation.Language);
+            Assert.Equal("en", firstTranslation.Language?.Name);
             Assert.Equal("This is display option", firstTranslation.Value);
         }
 
@@ -106,7 +106,7 @@ namespace DbLocalizationProvider.MigrationTool.Tests
             Assert.Equal(1, firstResource.Translations.Count);
 
             var firstTranslation = firstResource.Translations.First();
-            Assert.Equal("en", firstTranslation.Language);
+            Assert.Equal("en", firstTranslation.Language?.Name);
             Assert.Equal("This is display option 2", firstTranslation.Value);
         }
 
@@ -136,7 +136,7 @@ namespace DbLocalizationProvider.MigrationTool.Tests
             Assert.Equal(1, firstResource.Translations.Count);
 
             var firstTranslation = firstResource.Translations.First();
-            Assert.Equal("en", firstTranslation.Language);
+            Assert.Equal("en", firstTranslation.Language?.Name);
             Assert.Equal("This is display option", firstTranslation.Value);
         }
 
@@ -167,7 +167,7 @@ namespace DbLocalizationProvider.MigrationTool.Tests
             Assert.Equal(1, firstResource.Translations.Count);
 
             var firstTranslation = firstResource.Translations.First();
-            Assert.Equal("en", firstTranslation.Language);
+            Assert.Equal("en", firstTranslation.Language?.Name);
             Assert.Equal("This is display option 2", firstTranslation.Value);
         }
 
@@ -200,7 +200,7 @@ namespace DbLocalizationProvider.MigrationTool.Tests
             Assert.Equal(1, firstResource.Translations.Count);
 
             var firstTranslation = firstResource.Translations.First();
-            Assert.Equal("en", firstTranslation.Language);
+            Assert.Equal("en", firstTranslation.Language?.Name);
             Assert.Equal("This is display option 2", firstTranslation.Value);
         }
 

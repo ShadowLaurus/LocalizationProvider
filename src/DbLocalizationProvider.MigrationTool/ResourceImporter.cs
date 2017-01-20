@@ -15,7 +15,7 @@ namespace DbLocalizationProvider.MigrationTool
             }
 
             // create DB structures in target database
-            using (var db = new LanguageEntities(settings.ConnectionString))
+            using (var db = new LanguageContext(settings.ConnectionString))
             {
                 var resource = db.LocalizationResources.Where(r => r.Id == 0);
             }

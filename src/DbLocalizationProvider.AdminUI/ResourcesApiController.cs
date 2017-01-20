@@ -9,32 +9,27 @@ using DbLocalizationProvider.Commands;
 using DbLocalizationProvider.Queries;
 using Newtonsoft.Json;
 
-namespace DbLocalizationProvider.AdminUI
-{
+namespace DbLocalizationProvider.AdminUI {
     //[RoutePrefix("api")]
     //[Authorize]
-    public class ResourcesApiController : ApiController
-    {
+    public class ResourcesApiController : ApiController {
         private const string _cookieName = ".DbLocalizationProvider-SelectedLanguages";
 
         //[Route("get")]
-        public IHttpActionResult Get()
-        {
+        public IHttpActionResult Get() {
             return Ok(PrepareViewModel());
         }
 
         [HttpPost]
         //[Route("update")]
-        public IHttpActionResult Update(CreateOrUpdateTranslationRequestModel model)
-        {
-            var cmd = new CreateOrUpdateTranslation.Command(model.Key, new CultureInfo(model.Language), model.Translation);
+        public IHttpActionResult Update(CreateOrUpdateTranslationRequestModel model) {
+            var cmd = new CreateOrUpdateTranslation.Command(model.Key, new CultureInfo(model.Language ?? string.Empty), model.Translation);
             cmd.Execute();
 
             return Ok();
         }
 
-        private LocalizationResourceApiModel PrepareViewModel()
-        {
+        private LocalizationResourceApiModel PrepareViewModel() {
             var availableLanguagesQuery = new AvailableLanguages.Query();
             var languages = availableLanguagesQuery.Execute();
 
@@ -44,16 +39,14 @@ namespace DbLocalizationProvider.AdminUI
             var user = RequestContext.Principal;
             var isAdmin = false;
 
-            if (user != null)
-            {
+            if (user != null) {
                 isAdmin = user.Identity.IsAuthenticated && UiConfigurationContext.Current.AuthorizedAdminRoles.Any(r => user.IsInRole(r));
             }
 
             return new LocalizationResourceApiModel(resources, languages) { AdminMode = isAdmin };
         }
 
-        private IEnumerable<string> GetSelectedLanguages()
-        {
+        private IEnumerable<string> GetSelectedLanguages() {
             var cookie = Request.Headers.GetCookies(_cookieName).FirstOrDefault();
 
             return cookie?[_cookieName].Value?.Split(new[]
@@ -65,8 +58,7 @@ namespace DbLocalizationProvider.AdminUI
     }
 
     [JsonObject]
-    public class CreateOrUpdateTranslationRequestModel
-    {
+    public class CreateOrUpdateTranslationRequestModel {
         [JsonProperty("key")]
         public string Key { get; set; }
 

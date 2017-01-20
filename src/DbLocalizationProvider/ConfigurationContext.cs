@@ -9,7 +9,6 @@ namespace DbLocalizationProvider {
     ///     Context to configure various localization provider features and behavior
     /// </summary>
     public class ConfigurationContext {
-        public const string CultureForTranslationsFromCode = "";
         private CultureInfo _defaultResourceCulture;
 
         public ConfigurationContext() {
