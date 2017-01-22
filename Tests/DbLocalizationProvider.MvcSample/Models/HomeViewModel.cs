@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DbLocalizationProvider.MvcSample.Models
 {
@@ -16,6 +17,9 @@ namespace DbLocalizationProvider.MvcSample.Models
         [HelpText]
         [FancyHelpText]
         public string BaseUsername { get; set; }
+
+        public DateTime Date { get; set; }
+        public int? Number { get; set; }
 
         public string CustomMessage { get; } = "Resource like property on base view model";
     }
