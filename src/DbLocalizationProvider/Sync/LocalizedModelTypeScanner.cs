@@ -62,7 +62,7 @@ namespace DbLocalizationProvider.Sync
                 flags = flags | BindingFlags.DeclaredOnly;
 
             return target.GetProperties(flags)
-                         .Where(pi => pi.GetCustomAttribute<IgnoreAttribute>() == null)
+                         .Where(pi => pi.GetCustomAttribute<IgnoreLocalizedModelAttribute>() == null)
                          .Where(pi => !modelAttribute.OnlyIncluded || pi.GetCustomAttribute<IncludeAttribute>() != null).ToList();
         }
     }

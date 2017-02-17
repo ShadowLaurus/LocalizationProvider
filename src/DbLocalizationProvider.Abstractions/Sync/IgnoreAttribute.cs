@@ -3,5 +3,5 @@
 namespace DbLocalizationProvider.Sync
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class IgnoreAttribute : Attribute { }
+    public class IgnoreLocalizedModelAttribute : Attribute { }
 }

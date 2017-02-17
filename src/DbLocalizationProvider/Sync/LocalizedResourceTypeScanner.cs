@@ -53,7 +53,7 @@ namespace DbLocalizationProvider.Sync
             var flags = BindingFlags.Public | BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.Static;
 
             return target.GetProperties(flags)
-                         .Where(pi => pi.GetCustomAttribute<IgnoreAttribute>() == null).ToList();
+                         .Where(pi => pi.GetCustomAttribute<IgnoreLocalizedModelAttribute>() == null).ToList();
         }
     }
 }
